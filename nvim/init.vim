@@ -1,12 +1,10 @@
-" - Avoid using standard Vim directory names like 'plugin'
-
-
 " change mapleader
 :let mapleader = ";"
 
 source ~/dotfiles/nvim/Rename.vim
 
 " ##### PLUGINS ####
+" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 
 
@@ -64,8 +62,10 @@ Plug 'ambv/black'
 " haskell
 Plug 'dag/vim2hs'
 
-" tmux
+" allow seamless navigation between tmux/vim panes
 Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'benmills/vimux'
 
 
 " Initialize plugin system
@@ -105,12 +105,23 @@ nnoremap tl: tablast<CR>
 nnoremap <C-S> :w<CR>
 
 
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> vs <C-w>s
+
+nnoremap E $
+nnoremap B ^
+
+" add line trailing comma
+nnoremap <Leader>, A,<ESC>
+
+
 " remap ESC to jk 
 inoremap jk <ESC>
 
 " django templates autocompletion
 autocmd FileType html inoremap {%for {% for %}<CR>{% endfor %}<up><left><left><left><Space>
 autocmd FileType html inoremap {%if {% if %}<CR>{% endif %}<up><left><left><left><Space>
+autocmd FileType html inoremap {%b {% block %}<CR>{% endblock %}<up><left><left><left><Space>
 autocmd FileType html inoremap {# {# #}<left><left><left><Space>
 
 " copy and paste to/from clipboard
@@ -148,6 +159,8 @@ function! Insert_django_db()
   execute "normal o".trace
 endfunction
 
+
+map <Leader>te :VimuxPromptCommand<CR>
 
 "Transparent window
 "hi Normal guibg=NONE ctermbg=NONE
@@ -208,9 +221,6 @@ set statusline+=%*
 
 set showcmd
 
-" auto cd on opening files
-set autochdir
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
@@ -224,6 +234,21 @@ let g:airline#extensions#tabline#enabled = 1
 "Ignore files NERDTree
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 
-
 " black max line length for formatting files
 let g:black_line_length = 100
+
+" setup django syntax for html files
+au BufNewFile,BufRead *.html set filetype=htmldjango
+
+
+autocmd FileType *.html set shiftwidth=2 softtabstop=2 expandtab
+
+
+let b:surround_{char2nr("v")} = "{{ \r }}"
+let b:surround_{char2nr("{")} = "{{ \r }}"
+let b:surround_{char2nr("%")} = "{% \r %}"
+let b:surround_{char2nr("b")} = "{% block \1block name: \1 %}\r{% endblock \1\1 %}"
+let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
+let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
+let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
+let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
