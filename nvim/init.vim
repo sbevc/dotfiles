@@ -266,3 +266,6 @@ let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
  "let g:UltiSnipsJumpForwardTrigger="<c-b>"
  let g:UltiSnipsJumpForwardTrigger="<tab>"
  let g:UltiSnipsJumpBackwardTrigger="<C-tab>"
+ 
+
+let python_highlight_all = 1
