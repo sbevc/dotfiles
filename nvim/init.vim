@@ -23,6 +23,10 @@ Plug 'deoplete-plugins/deoplete-jedi'
 " Go to definition
 Plug 'davidhalter/jedi-vim'
 
+" python snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 " Multiple cursors
 Plug 'terryma/vim-multiple-cursors'
 
@@ -48,7 +52,6 @@ Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'vim-python/python-syntax'
-
 
 " status tabline
 Plug 'vim-airline/vim-airline'
@@ -124,6 +127,7 @@ autocmd FileType html inoremap {%if {% if %}<CR>{% endif %}<up><left><left><left
 autocmd FileType html inoremap {%b {% block %}<CR>{% endblock %}<up><left><left><left><Space>
 autocmd FileType html inoremap {# {# #}<left><left><left><Space>
 
+
 " copy and paste to/from clipboard
 vmap <Leader>y "+y
 vmap <Leader>d "+d
@@ -138,10 +142,12 @@ nmap <Leader>s "*p
 nmap <silent> <Leader>/ :nohlsearch<CR>
 
 
-"navigate through buffers
+"dnavigate through buffers
 map <Leader>k :bnext<CR>
 map <Leader>j :bprev<CR>
-map <Leader>w :bd<CR>
+map <Leader>q :SyntasticReset<CR>
+map <Leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
+
 
 " insert pdb function
 map <Leader>pdb :call Insert_pdb()<CR>
@@ -244,6 +250,7 @@ au BufNewFile,BufRead *.html set filetype=htmldjango
 autocmd FileType *.html set shiftwidth=2 softtabstop=2 expandtab
 
 
+" django conf
 let b:surround_{char2nr("v")} = "{{ \r }}"
 let b:surround_{char2nr("{")} = "{{ \r }}"
 let b:surround_{char2nr("%")} = "{% \r %}"
@@ -252,3 +259,10 @@ let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
 let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
+
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+ let g:UltiSnipsExpandTrigger="<tab>"
+ "let g:UltiSnipsJumpForwardTrigger="<c-b>"
+ let g:UltiSnipsJumpForwardTrigger="<tab>"
+ let g:UltiSnipsJumpBackwardTrigger="<C-tab>"
