@@ -47,6 +47,7 @@ Plug 'cloudhead/neovim-fuzzy'
 
 " Themes
 Plug 'morhetz/gruvbox'
+Plug 'ericbn/vim-solarized'
 
 " Auto close parenthesis
 Plug 'jiangmiao/auto-pairs'
@@ -74,9 +75,14 @@ Plug 'benmills/vimux'
 " Initialize plugin system
 call plug#end()
 
+
+syntax enable
 set background=dark
-colorscheme gruvbox
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1 
+colorscheme solarized
+
+"set background=dark
+"colorscheme gruvbox
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1 
 let g:palenight_terminal_italics=1
 
 let g:deoplete#enable_at_startup = 1
