@@ -10,10 +10,28 @@
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="gruvbox"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 
-POWERLEVEL9K_RIGTH_PROMPT_ELEMENTS=(status virtualenv)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    custom_ubuntu
+    virtualenv
+    dir
+)
+
+
+POWERLEVEL9K_DISABLE_RPROMPT=true
+VIRTUAL_ENV_DISABLE_PROMPT=1
+# Create a custom JavaScript prompt section
+POWERLEVEL9K_CUSTOM_UBUNTU="echo -n '\uf31a'"
+POWERLEVEL9K_CUSTOM_UBUNTU_FOREGROUND="black"
+POWERLEVEL9K_CUSTOM_UBUNTU_BACKGROUND="yellow"
+
+POWERLEVEL9K_VIRTUALENV_BACKGROUND="green"
+
+POWERLEVEL9K_MODE="nerdfont-complete"
+source ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,9 +88,8 @@ POWERLEVEL9K_RIGTH_PROMPT_ELEMENTS=(status virtualenv)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions virtualenv)
+plugins=(git zsh-autosuggestions)
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -128,3 +145,9 @@ alias l='ls -CF'
 
 # run pgAdmin4 for postgres
 alias pgadmin='source /home/seba/agroIT/venvs/pgAdmin4/bin/activate && python /home/seba/agroIT/venvs/pgAdmin4/lib/python2.7/site-packages/pgadmin4/pgAdmin4.py'
+
+alias v="nvim"
+
+alias vz='nvim ~/.zshrc'
+
+source $ZSH/oh-my-zsh.sh

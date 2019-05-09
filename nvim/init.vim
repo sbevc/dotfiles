@@ -36,7 +36,7 @@ Plug 'scrooloose/nerdtree'
 " Syntax checking
 Plug 'scrooloose/syntastic'
 
-" Sorroung writing
+" Sorround writing
 Plug 'tpope/vim-surround'
 
 " Comment lines 
@@ -48,6 +48,7 @@ Plug 'cloudhead/neovim-fuzzy'
 " Themes
 Plug 'morhetz/gruvbox'
 Plug 'ericbn/vim-solarized'
+Plug 'dracula/vim'
 
 " Auto close parenthesis
 Plug 'jiangmiao/auto-pairs'
