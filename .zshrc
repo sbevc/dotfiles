@@ -9,13 +9,13 @@
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel9k/powerlevel9k"
+#ZSH_THEME="robbyrussell"
 
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    custom_ubuntu
     virtualenv
+    custom_ubuntu
     dir
 )
 
@@ -88,7 +88,7 @@ source ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git virtualenv zsh-autosuggestions)
 
 
 # User configuration
@@ -151,3 +151,8 @@ alias v="nvim"
 alias vz='nvim ~/.zshrc'
 
 source $ZSH/oh-my-zsh.sh
+
+#ls colors
+unset LSCOLORS
+export CLICOLOR=1
+export CLICOLOR_FORCE=1

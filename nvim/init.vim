@@ -118,8 +118,6 @@ nnoremap <C-S> :w<CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> vs <C-w>s
 
-nnoremap E $
-nnoremap B ^
 
 " add line trailing comma
 nnoremap <Leader>, A,<ESC>
@@ -127,13 +125,8 @@ nnoremap <Leader>, A,<ESC>
 
 " remap ESC to jk 
 inoremap jk <ESC>
-
-" django templates autocompletion
-autocmd FileType html inoremap {%for {% for %}<CR>{% endfor %}<up><left><left><left><Space>
-autocmd FileType html inoremap {%if {% if %}<CR>{% endif %}<up><left><left><left><Space>
-autocmd FileType html inoremap {%b {% block %}<CR>{% endblock %}<up><left><left><left><Space>
-autocmd FileType html inoremap {# {# #}<left><left><left><Space>
-
+inoremap <C-j> <C-O>o<up><end>
+inoremap <C-k> <C-O>O<down><end>
 
 " copy and paste to/from clipboard
 vmap <Leader>y "+y
@@ -254,10 +247,10 @@ let g:black_line_length = 100
 au BufNewFile,BufRead *.html set filetype=htmldjango
 
 
-autocmd FileType *.html set shiftwidth=2 softtabstop=2 expandtab
+autocmd BufRead,BufNewFile *.htm,*.html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
-
-" django conf
+" ### django conf###
+" add keybindings to sorround plugin
 let b:surround_{char2nr("v")} = "{{ \r }}"
 let b:surround_{char2nr("{")} = "{{ \r }}"
 let b:surround_{char2nr("%")} = "{% \r %}"
@@ -266,6 +259,17 @@ let b:surround_{char2nr("i")} = "{% if \1condition: \1 %}\r{% endif %}"
 let b:surround_{char2nr("w")} = "{% with \1with: \1 %}\r{% endwith %}"
 let b:surround_{char2nr("f")} = "{% for \1for loop: \1 %}\r{% endfor %}"
 let b:surround_{char2nr("c")} = "{% comment %}\r{% endcomment %}"
+let b:surround_{char2nr("u")} = "{% url \r %}"
+
+
+" custom autocompletion while wrting django tags
+autocmd FileType html inoremap {%for {% for %}<CR>{% endfor %}<up><left><left><left><Space>
+autocmd FileType html inoremap {%if {% if %}<CR>{% endif %}<up><left><left><left><Space>
+autocmd FileType html inoremap {%b {% block %}<CR>{% endblock %}<up><left><left><left><Space>
+autocmd FileType html inoremap {%u {% url  %}<left><left><left>''<left>
+autocmd FileType html inoremap {# {# #}<left><left><left><Space>
+autocmd FileType html inoremap {% {% %}<left><left><Left>
+
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
