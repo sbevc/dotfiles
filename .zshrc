@@ -14,15 +14,16 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    virtualenv
     custom_ubuntu
+    virtualenv
     dir
+    vcs
+    newline
 )
 
 
 POWERLEVEL9K_DISABLE_RPROMPT=true
-VIRTUAL_ENV_DISABLE_PROMPT=1
-# Create a custom JavaScript prompt section
+# Create a custom ubuntu prompt section
 POWERLEVEL9K_CUSTOM_UBUNTU="echo -n '\uf31a'"
 POWERLEVEL9K_CUSTOM_UBUNTU_FOREGROUND="black"
 POWERLEVEL9K_CUSTOM_UBUNTU_BACKGROUND="yellow"
@@ -32,6 +33,7 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="green"
 POWERLEVEL9K_MODE="nerdfont-complete"
 source ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
 
+#VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -119,6 +121,8 @@ export EDITOR='nvim'
 # activate environments
 
 alias env-fas='source ~/agroIT/venvs/fas/bin/activate && cd ~/agroIT/sitio-fas'
+alias env-fas-viejo='source ~/agroIT/venvs/fas-viejo/bin/activate && cd ~/agroIT/fas-viejo'
+alias env-fix='source ~/agroIT/venvs/fix/bin/activate && cd ~/agroIT/fixed_asset'
 
 alias vim='nvim'
 alias vi='nvim'
@@ -131,7 +135,7 @@ alias o='xdg-open'
 alias killdj='sudo lsof -t -i tcp:8000 | xargs kill -9'
 
 alias djrs='python manage.py runserver'
-alias djshell='python manage.py shell -i ipython'
+alias djshell='python manage.py shell_plus'
 
 alias fuzzy='find . -type f | fzy'
 
@@ -139,7 +143,7 @@ export WORKON_HOME="$HOME/agroIT/venvs/"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -la'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -156,3 +160,5 @@ source $ZSH/oh-my-zsh.sh
 unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
+
+alias so='source venv/bin/activate'

@@ -3,6 +3,8 @@
 
 source ~/dotfiles/nvim/Rename.vim
 
+
+
 " ##### PLUGINS ####
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
@@ -69,8 +71,20 @@ Plug 'dag/vim2hs'
 
 " allow seamless navigation between tmux/vim panes
 Plug 'christoomey/vim-tmux-navigator'
-
 Plug 'benmills/vimux'
+
+" see file structure
+Plug 'majutsushi/tagbar'
+
+Plug 'boeckmann/vim-freepascal'
+
+" Make diff between selected sections
+Plug 'AndrewRadev/linediff.vim'
+
+Plug 'pangloss/vim-javascript'
+
+"Vue syntax highlight
+Plug 'storyn26383/vim-vue'
 
 
 " Initialize plugin system
@@ -123,10 +137,20 @@ nnoremap <silent> vs <C-w>s
 nnoremap <Leader>, A,<ESC>
 
 
+nnoremap <Leader>f :NERDTreeFind<CR>
+
+nmap s' ysiw'
+
+
 " remap ESC to jk 
 inoremap jk <ESC>
 inoremap <C-j> <C-O>o<up><end>
 inoremap <C-k> <C-O>O<down><end>
+
+inoremap <C-e> <C-o>de
+
+
+inoremap <C-l> <del>
 
 " copy and paste to/from clipboard
 vmap <Leader>y "+y
@@ -141,12 +165,21 @@ nmap <Leader>s "*p
 " clear search results
 nmap <silent> <Leader>/ :nohlsearch<CR>
 
+" show file structure
+nmap <F10> :TagbarToggle<CR>
+" focus tagbar
+nnoremap <F11> :TagbarOpen j<CR>
+
+nmap <F9> :NERDTreeFind<CR>
 
 "dnavigate through buffers
 map <Leader>k :bnext<CR>
 map <Leader>j :bprev<CR>
 map <Leader>q :SyntasticReset<CR>
 map <Leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
+
+map <F2> :mksession! ~/vimsesesion.vim <CR>
+map <F3> :source ~/vimsesesion.vim <CR>
 
 
 " insert pdb function
@@ -232,7 +265,11 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ["flake8"]
-let g:syntastic_python_flake8_args='--ignore=E231,W291'
+let g:syntastic_python_flake8_args='--ignore=E231,W291,E702,E501,W504,W293'
+
+let g:syntastic_javascript_checkers = ['jshint']
+
+let g:syntastic_rst_checkers=['sphinx']
 
 "Enable list of buffers on airline
 let g:airline#extensions#tabline#enabled = 1 
@@ -247,7 +284,8 @@ let g:black_line_length = 100
 au BufNewFile,BufRead *.html set filetype=htmldjango
 
 
-autocmd BufRead,BufNewFile *.htm,*.html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.htm,*.html,*.js setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.rst setlocal tabstop=3 shiftwidth=3 softtabstop=3
 
 " ### django conf###
 " add keybindings to sorround plugin
@@ -263,12 +301,12 @@ let b:surround_{char2nr("u")} = "{% url \r %}"
 
 
 " custom autocompletion while wrting django tags
-autocmd FileType html inoremap {%for {% for %}<CR>{% endfor %}<up><left><left><left><Space>
-autocmd FileType html inoremap {%if {% if %}<CR>{% endif %}<up><left><left><left><Space>
-autocmd FileType html inoremap {%b {% block %}<CR>{% endblock %}<up><left><left><left><Space>
-autocmd FileType html inoremap {%u {% url  %}<left><left><left>''<left>
-autocmd FileType html inoremap {# {# #}<left><left><left><Space>
-autocmd FileType html inoremap {% {% %}<left><left><Left>
+autocmd FileType htmldjango inoremap {%for {% for %}<CR>{% endfor %}<up><left><left><left><Space>
+autocmd FileType htmldjango inoremap {%if {% if %}<CR>{% endif %}<up><left><left><left><Space>
+autocmd FileType htmldjango inoremap {%b {% block %}<CR>{% endblock %}<up><left><left><left><Space>
+autocmd FileType htmldjango inoremap {%u {% url  %}<left><left><left>''<left>
+autocmd FileType htmldjango inoremap {# {# #}<left><left><left><Space>
+autocmd FileType htmldjango inoremap {% {% %}<left><left><Left>
 
 
 
@@ -280,3 +318,28 @@ autocmd FileType html inoremap {% {% %}<left><left><Left>
  
 
 let python_highlight_all = 1
+
+let g:python_host_prog = expand('~/nvim/neovim2/bin/python')
+let g:python3_host_prog = expand('~/nvim/neovim3/bin/python')
+
+
+" pascal skeleton
+autocmd BufNewFile *.pas call PascalSkeleton()
+
+function! PascalSkeleton()
+    call append("0", "PROGRAM " . expand("%:t:r") . ";")    "put filename as program name
+    call append("$", "VAR")
+    call append("$", "")
+    call append("$", "BEGIN")
+    call append("$", "")
+    call append("$", "END.")
+endfunction
+
+
+" Underline the current line with the given input chars
+nnoremap ti :call Underline()<CR>
+function! Underline()
+    let lineLength = strwidth(getline('.'))
+    let underlineChar = input('Underline with: ')
+    execute ':normal! o' . repeat(underlineChar, lineLength)
+endfunction
