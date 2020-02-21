@@ -33,7 +33,7 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="green"
 POWERLEVEL9K_MODE="nerdfont-complete"
 source ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
 
-#VIRTUAL_ENV_DISABLE_PROMPT=1
+VIRTUAL_ENV_DISABLE_PROMPT=true
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -162,3 +162,17 @@ export CLICOLOR=1
 export CLICOLOR_FORCE=1
 
 alias so='source venv/bin/activate'
+
+# cd to project and activate python environment
+function workon() {
+    if [ $1 = "smm" ]; then 
+        cd ~/agroIT/marcacionesmoviles/smm/
+        source ~/agroIT/venvs/smm/bin/activate
+    else
+        cd ~/agroIT/$1
+        source ~/agroIT/venvs/$1/bin/activate
+    fi
+}
+
+# Disable touch-screen, to enable set to 1
+xinput set-prop "ELAN Touchscreen" "Device Enabled" 0

@@ -19,8 +19,16 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" Autocompletion
+" Python autocompletion
 Plug 'deoplete-plugins/deoplete-jedi'
+
+"JavaScript autocomplete
+Plug 'carlitux/deoplete-ternjs'
+Plug 'pangloss/vim-javascript'
+
+"React
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 
 " Go to definition
 Plug 'davidhalter/jedi-vim'
@@ -81,10 +89,12 @@ Plug 'boeckmann/vim-freepascal'
 " Make diff between selected sections
 Plug 'AndrewRadev/linediff.vim'
 
-Plug 'pangloss/vim-javascript'
 
 "Vue syntax highlight
 Plug 'storyn26383/vim-vue'
+
+" Folding
+Plug 'tmhedberg/SimpylFold'
 
 
 " Initialize plugin system
@@ -100,13 +110,22 @@ colorscheme solarized
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1 
 let g:palenight_terminal_italics=1
 
+" deoplete opts
+" enable by default on startup
 let g:deoplete#enable_at_startup = 1
 
-" disable autocompletion, we use deoplete for completion
+let g:deoplete#sources#ternjs#types = 1
+
+" disable jedi autocomplete, we use deoplete for completion
 let g:jedi#completions_enabled = 0
+
 
 " trigger emmet create tags 
 let g:user_emmet_leader_key=','
+
+
+"let g:jsx_ext_required = 0
+
 
 " Search for files with crtl + p
 nnoremap <C-p> :FuzzyOpen<CR>
@@ -265,9 +284,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ["flake8"]
-let g:syntastic_python_flake8_args='--ignore=E231,W291,E702,E501,W504,W293'
+let g:syntastic_python_flake8_args='--ignore=E231,W291,E702,E501,W504,W293,E203'
 
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 let g:syntastic_rst_checkers=['sphinx']
 
