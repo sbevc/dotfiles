@@ -1,5 +1,7 @@
 # Ultisnips
 
+# File must be symlinked from ultisnips folder
+
 # See 
 #	https://github.com/SirVer/ultisnips
 #	https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
@@ -23,37 +25,67 @@ def htmlize(camel_case_name):
 			htmlized += l
 	return htmlized
 
+
+def get_react_component_name():
+	"""
+	Get React's component name from the current filename
+	
+	Remember that snip is made available by ultisnips, see the docs.
+	"""
+	return snip.fn.split(".")[0]
+
+
+def get_react_component_classname():
+	"""Get component's html class name from the current component's name"""
+	return htmlize(get_react_component_name())
+
+
 endglobal
 # End python fuctions
 
 
-## React components ##
+## React ##
+snippet imr "Import react"
+import React from 'react';
+endsnippet
+
+snippet imrd "Import react dom"
+import ReactDOM from 'react-dom';
+endsnippet
+
 snippet rcc "React class component" b
-class ${1:componentName} extends React.component {
+import React from 'react';
+
+
+class `!p snip.rv = get_react_component_name()` extends React.component {
 
 	this.state = {
-		${2:foo: bar}
+		${1:foo: bar}
 	}
 
 	render() {
 		return (
-			<div className="`!p snip.rv = htmlize(t[1])`">
+			<div className="`!p snip.rv = get_react_component_classname()`">
 				$0
 			</div>;
-	   )
+		)
 	}
+
 }
 
 
-export default $1;
+export default `!p snip.rv = get_react_component_name()`;
 endsnippet
 
 
 snippet rfc "React functional component" b
-const ${1:componentName} = (props) => {
+import React from 'react';
+
+
+const `!p snip.rv = get_react_component_name()` = (props) => {
 
 	return (
-		<div className="`!p snip.rv = htmlize(t[1])`">
+		<div className="`!p snip.rv = get_react_component_classname()`">
 			$0
 		</div>;
 	)
@@ -61,5 +93,5 @@ const ${1:componentName} = (props) => {
 }
 
 
-export default $1;
+export default `!p snip.rv = get_react_component_name()`;
 endsnippet
