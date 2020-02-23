@@ -1,0 +1,65 @@
+# Ultisnips
+
+# See 
+#	https://github.com/SirVer/ultisnips
+#	https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+
+# Define global python functions that will be available to use within snippets
+# that use python scripts
+global !p
+
+def htmlize(camel_case_name):
+	"""
+	Convert camel case word to html-ish word. 
+
+	For example: FooBarBaz will be converted to 'foo-bar-baz'
+	"""
+	htmlized = camel_case_name[0].lower()
+	for l in camel_case_name[1:]:
+		if l.isupper():
+			htmlized += "-%s" % l.lower()
+		else:
+			htmlized += l
+	return htmlized
+
+endglobal
+# End python fuctions
+
+
+## React components ##
+snippet rcc "React class component" b
+class ${1:componentName} extends React.component {
+
+	this.state = {
+		${2:foo: bar}
+	}
+
+	render() {
+		return (
+			<div className="`!p snip.rv = htmlize(t[1])`">
+				$0
+			</div>;
+	   )
+	}
+}
+
+
+export default $1;
+endsnippet
+
+
+snippet rfc "React functional component" b
+const ${1:componentName} = (props) => {
+
+	return (
+		<div className="`!p snip.rv = htmlize(t[1])`">
+			$0
+		</div>;
+	)
+
+}
+
+
+export default $1;
+endsnippet

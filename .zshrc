@@ -120,15 +120,10 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # activate environments
 
-alias env-fas='source ~/agroIT/venvs/fas/bin/activate && cd ~/agroIT/sitio-fas'
-alias env-fas-viejo='source ~/agroIT/venvs/fas-viejo/bin/activate && cd ~/agroIT/fas-viejo'
-alias env-fix='source ~/agroIT/venvs/fix/bin/activate && cd ~/agroIT/fixed_asset'
-
 alias vim='nvim'
 alias vi='nvim'
 
 alias vimrc='nvim ~/.config/nvim/init.vim'
-
 
 alias o='xdg-open'
 
@@ -161,18 +156,15 @@ unset LSCOLORS
 export CLICOLOR=1
 export CLICOLOR_FORCE=1
 
-alias so='source venv/bin/activate'
-
-# cd to project and activate python environment
-function workon() {
-    if [ $1 = "smm" ]; then 
-        cd ~/agroIT/marcacionesmoviles/smm/
-        source ~/agroIT/venvs/smm/bin/activate
-    else
-        cd ~/agroIT/$1
-        source ~/agroIT/venvs/$1/bin/activate
-    fi
-}
-
 # Disable touch-screen, to enable set to 1
 xinput set-prop "ELAN Touchscreen" "Device Enabled" 0
+
+# virtualenvwrapper
+export WORKON_HOME=$HOME/agroIT/venvs
+export PROJECT_HOME=$HOME/agroIT/
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+# autoenv config
+export AUTOENV_ENABLE_LEAVE="true"
+export AUTOENV_ASSUME_YES="true"
+source `which activate.sh`
