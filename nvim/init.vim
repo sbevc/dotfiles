@@ -26,6 +26,9 @@ Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'pangloss/vim-javascript'
 
+" Javascript formatter
+Plug 'sbdchd/neoformat'
+
 "React
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
@@ -298,6 +301,22 @@ let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 
 " black max line length for formatting files
 let g:black_line_length = 100
+
+
+" Neoformat use vim's formatprg
+let g:neoformat_try_formatprg = 1
+
+" Neoformat -> autoformat javascript on save
+augroup NeoformatAutoFormat
+    autocmd!
+    autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\
+                                                            \--stdin\
+                                                            \--print-width\ 80\
+                                                            \--single-quote\
+                                                            \--trailing-comma\ es5
+    autocmd BufWritePre *.js,*.jsx Neoformat
+augroup END
+
 
 " setup django syntax for html files
 au BufNewFile,BufRead *.html set filetype=htmldjango
