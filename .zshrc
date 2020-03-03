@@ -9,31 +9,7 @@
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel9k/powerlevel9k"
-#ZSH_THEME="robbyrussell"
-
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    custom_ubuntu
-    virtualenv
-    dir
-    vcs
-    newline
-)
-
-
-POWERLEVEL9K_DISABLE_RPROMPT=true
-# Create a custom ubuntu prompt section
-POWERLEVEL9K_CUSTOM_UBUNTU="echo -n '\uf31a'"
-POWERLEVEL9K_CUSTOM_UBUNTU_FOREGROUND="black"
-POWERLEVEL9K_CUSTOM_UBUNTU_BACKGROUND="yellow"
-
-POWERLEVEL9K_VIRTUALENV_BACKGROUND="green"
-
-POWERLEVEL9K_MODE="nerdfont-complete"
-source ~/.oh-my-zsh/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
-
-VIRTUAL_ENV_DISABLE_PROMPT=true
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -90,7 +66,11 @@ VIRTUAL_ENV_DISABLE_PROMPT=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git virtualenv zsh-autosuggestions)
+plugins=(
+    git
+    virtualenv 
+    zsh-autosuggestions
+)
 
 
 # User configuration
@@ -134,7 +114,6 @@ alias djshell='python manage.py shell_plus'
 
 alias fuzzy='find . -type f | fzy'
 
-export WORKON_HOME="$HOME/agroIT/venvs/"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # some more ls aliases
@@ -159,12 +138,13 @@ export CLICOLOR_FORCE=1
 # Disable touch-screen, to enable set to 1
 xinput set-prop "ELAN Touchscreen" "Device Enabled" 0
 
-# virtualenvwrapper
-export WORKON_HOME=$HOME/agroIT/venvs
-export PROJECT_HOME=$HOME/agroIT/
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
-# autoenv config
-export AUTOENV_ENABLE_LEAVE="true"
-export AUTOENV_ASSUME_YES="true"
-source `which activate.sh`
+export VIRTUAL_ENV_DISABLE_PROMPT=0
+
+
+function virtualenv_info {
+    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`')'
+}
+
+local ret_status="%(?:%{$fg_bold[green]%}➜:%{$fg_bold[red]%}➜)"
+PROMPT='${ret_status} $(virtualenv_info) %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
