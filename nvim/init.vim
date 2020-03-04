@@ -60,8 +60,6 @@ Plug 'cloudhead/neovim-fuzzy'
 
 " Themes
 Plug 'morhetz/gruvbox'
-Plug 'ericbn/vim-solarized'
-Plug 'dracula/vim'
 
 " Auto close parenthesis
 Plug 'jiangmiao/auto-pairs'
@@ -106,7 +104,8 @@ call plug#end()
 
 syntax enable
 set background=dark
-colorscheme solarized
+set termguicolors
+colorscheme gruvbox
 
 "set background=dark
 "colorscheme gruvbox
@@ -350,7 +349,6 @@ autocmd FileType htmldjango inoremap {% {% %}<left><left><Left>
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
  let g:UltiSnipsExpandTrigger="<tab>"
- "let g:UltiSnipsJumpForwardTrigger="<c-b>"
  let g:UltiSnipsJumpForwardTrigger="<tab>"
  let g:UltiSnipsJumpBackwardTrigger="<C-tab>"
  
@@ -359,19 +357,6 @@ let python_highlight_all = 1
 
 let g:python_host_prog = expand('~/nvim/neovim2/bin/python')
 let g:python3_host_prog = expand('~/nvim/neovim3/bin/python')
-
-
-" pascal skeleton
-autocmd BufNewFile *.pas call PascalSkeleton()
-
-function! PascalSkeleton()
-    call append("0", "PROGRAM " . expand("%:t:r") . ";")    "put filename as program name
-    call append("$", "VAR")
-    call append("$", "")
-    call append("$", "BEGIN")
-    call append("$", "")
-    call append("$", "END.")
-endfunction
 
 
 " Underline the current line with the given input chars

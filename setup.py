@@ -26,16 +26,17 @@ if __name__ == "__main__":
     if sys.version_info < (3,6):
         raise RuntimeError("Script must be run with python 3.6 or higher")
 
+    # NVIM
     apt_install("neovim")
 
+    # ZSH
     apt_install("zsh")
-
     info("Setting zsh as default shell")
     run_command("chsh -s $(which zsh)")
 
+    # OH-MY-ZSH
     info("Installing oh-my-zsh")
     run_command('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"')
-
     info("Cloning zsh-autosuggestions")
     run_command('git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions')
 
@@ -69,6 +70,10 @@ if __name__ == "__main__":
 
     apt_install("tmux")
     create_symlink(from_=DOTFILES_DIR.joinpath('.tmux.conf'), to=HOME)
+
+    info("Installing ripgrep and fzy for file searching")
+    apt_install("ripgrep")
+    apt_install("fzy")
 
     print()
     print(" #### REMINDERS ##### ")
